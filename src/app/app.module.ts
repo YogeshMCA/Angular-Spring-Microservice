@@ -4,6 +4,8 @@ import { AppComponent } from './app.component';
 import { CurrencyComponent } from './currency/currency.component';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import {AppRouterModule} from './AppRountingModule';
+import { UserService } from './currency/user.service';
 
 @NgModule({
   declarations: [
@@ -13,9 +15,10 @@ import {HttpClientModule} from '@angular/common/http';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRouterModule
     ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

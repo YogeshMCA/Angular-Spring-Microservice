@@ -1,17 +1,16 @@
 <div>
-  Date/Time: {{dateTime}} INR to USD : {{inr2USD}}<br>
+  Date/Time: {{dateTime}}<br>
   Name: {{user.userName}}<br>
   Address: {{user.address}}<br>
   <div *ngIf="user.phone.length">
     Phone Numbers:
-    <p *ngFor="let phoneNo of user.phone">{{phoneNo}}</p>
+    <div *ngFor="let phoneNo of user.phone">{{phoneNo}}</div>
    </div>
   </div>
-<div>
-  <div>Employer Name  Employer Address</div>
-  <div>{{emp[0].eName}}</div>
-   <div>{{emp[0].eAddress}}</div>
-</div>
+<!--<div>
+   <div>Employer Name: {{emp[0].eName}}</div>
+   <div>Employer Address: {{emp[0].eAddress}}</div>
+</div>-->
 <br>
 From:
 <div>
@@ -24,10 +23,10 @@ From:
    <select name="sTo" [(ngModel)]="sTo">
      <option value={{to}} *ngFor="let to of cCode.toLst">{{to}}</option>
    </select>
-   {{inr2USD}}
+   {{inr2USD}}{{errorMessage}}
  </div>
  <div style="padding-top: 1%">
-   <input type="button" name="Convert" id="Convert" value="Convert" (click)="Convert()"/>
+   <button class="btn btn-primary" name="Convert" (click)="Convert()">Convert</button>
  </div>
  
 
