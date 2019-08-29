@@ -1,0 +1,70 @@
+<!-- Template Directives - ngForm,[(ngModel)]="userFeedback.",[(ngModel)]="userFeedback."Group-->
+<div class="container-fluid">
+    <form #userForm="ngForm">
+        <!--{{userForm.value | json}} -->
+        <!-- {{userFeedback | json}} <!--Values will get displayed, when using [(ngModel)]-->
+        <div class = form-group>
+            <label>Name:</label>
+            <input [(ngModel)]="userFeedback.uName" required name="uName" #name="ngModel"
+            type="text" [class.is-invalid]="name.invalid && name.touched" class="form-control" style="width: 10%; height: 2%;"/>
+            <div *ngIf="name.errors && name.touched">
+                <small class="text-danger">Name is required</small>    
+            </div>
+        </div>
+        
+        <!--#name - used as reference-->
+        <!--{{name.className}} <!--form-control ng-untouched ng-pristine ng-valid-->
+        <!--#name="ngModel" - used as reference to use to property-->
+        <!--{{name.untouched}} <!-- untouched - Property of ng-untouched class -->
+        <!--{{name.valid}} <!-- valid - ng-valid class. Used with required attribute-->
+        <!--{{name.value}} <!--Display the value-->
+        <div class = form-group>
+            <label>Email:</label>
+            <input [(ngModel)]="userFeedback.email" required name="email" #email="ngModel" [class.is-invalid]="email.invalid && email.touched"
+             type="email" class="form-control" style="width: 15%; height: 2%;"/>
+             <div *ngIf="email.errors && email.touched">
+                <small class="text-danger">Email is required</small>
+             </div>
+        </div>
+        
+        <div class = form-group>
+            <label>Mobile:</label>
+            <input [(ngModel)]="userFeedback.mobile" required name="mobile" 
+            #mobile="ngModel" [class.is-invalid]="mobile.invalid && mobile.touched" type="tel" class="form-control" 
+            style="width: 15%; height: 2%;"/>
+            <div *ngIf="mobile.errors && mobile.touched">
+                 <small class="text-danger">Mobile number is required</small>   
+            </div>
+        </div>
+        
+        <div class = form-group>
+            <label>Favorite Food:</label><br>
+            <select [(ngModel)]="userFeedback.food" class="custom-select" style="width: 15%;" name="food">
+                <option *ngFor="let food of foodLst">{{food}}</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label>Really Liked:</label>
+            <div class="form-check">
+                <input [(ngModel)]="userFeedback.liked" name="liked" class="form-check-input" type="radio" name="liked" value="Yes"/>
+                <label class="form-check-label">Yes</label>
+            </div>
+            <div class="form-check">
+                <input [(ngModel)]="userFeedback.liked" name="liked" class="form-check-input" type="radio" name="liked" value="No"/>
+                <label class="form-check-label">No</label>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label>Need Improvments:</label><br>
+            <div class="form-check">
+            <input [(ngModel)]="userFeedback.nImp" name="nImp" type="checkbox" class="form-check-input"/>
+            <label class="form-check-label">On-Time Delivery</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input [(ngModel)]="userFeedback.nImp" name="nImp" type="checkbox" class="form-check-input"/>
+            <label class="form-check-label">More Spicy</label>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+</div>
+

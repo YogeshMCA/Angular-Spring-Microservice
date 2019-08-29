@@ -5,5 +5,5 @@ export class UserFeedback {
     public food: String;
     public liked: String;
     public nImp: boolean;
-    
+    public createDate: Date;
 }

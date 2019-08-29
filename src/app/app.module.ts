@@ -6,11 +6,15 @@ import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {AppRouterModule} from './AppRountingModule';
 import { UserService } from './currency/user.service';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { SearchComponent } from './feedback/search/search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CurrencyComponent
+    CurrencyComponent,
+    FeedbackComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

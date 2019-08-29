@@ -1,0 +1,42 @@
+<h5>Search works!</h5>
+<div class="container-fluid">
+  <form>
+          <div class = form-group>
+          <label>Search By:</label>
+          <select [(ngModel)]="selectedField" name="selectedField" class="form-control" style="width: 15%; height: 2%;">
+            <option *ngFor="let fields of fieldLst">{{fields}}</option>
+          </select>
+          <input [(ngModel)]="selectedValue" required name="selectedValue" #sValue="ngModel"
+          type="text" [class.is-invalid]="sValue.invalid && sValue.touched" class="form-control" style="width: 10%; height: 2%;"/>
+          <div *ngIf="sValue.errors && sValue.touched">
+              <small class="text-danger">Search field is required</small>    
+          </div>
+          <button class="btn btn-primary" (click)="getDetails()" name="Search">Search</button>
+    </div>
+    
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Phone</th>
+          <th scope="col">Liked</th>
+          <th scope="col">NeedImprovment</th>
+          <th scope="col">Created</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+            <td>{{userFeedbk.uName}}</td>
+            <td>{{userFeedbk.mobile}}</td>
+            <td>{{userFeedbk.email}}</td>
+            <td>{{userFeedbk.liked}}</td>
+            <td>{{userFeedbk.nImp}}</td>
+            <td>{{userFeedbk.createDate}}</td>
+          </tr>
+      </tbody>
+    </table>
+  
+    </form>
+  </div>
+
