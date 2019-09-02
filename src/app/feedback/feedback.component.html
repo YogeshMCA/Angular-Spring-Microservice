@@ -1,6 +1,6 @@
 <!-- Template Directives - ngForm,[(ngModel)]="userFeedback.",[(ngModel)]="userFeedback."Group-->
 <div class="container-fluid">
-    <form #userForm="ngForm">
+    <form #userForm="ngForm" (ngSubmit)="saveFeedback()">
         <!--{{userForm.value | json}} -->
         <!-- {{userFeedback | json}} <!--Values will get displayed, when using [(ngModel)]-->
         <div class = form-group>

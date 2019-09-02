@@ -8,6 +8,7 @@ import {AppRouterModule} from './AppRountingModule';
 import { UserService } from './currency/user.service';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { SearchComponent } from './feedback/search/search.component';
+import {NgbModule,NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { SearchComponent } from './feedback/search/search.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRouterModule
+    AppRouterModule,
+    NgbModule,
+    NgbAlertModule
     ],
   providers: [UserService],
   bootstrap: [AppComponent]
