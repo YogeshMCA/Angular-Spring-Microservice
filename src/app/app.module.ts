@@ -8,7 +8,8 @@ import {AppRouterModule} from './AppRountingModule';
 import { UserService } from './currency/user.service';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { SearchComponent } from './feedback/search/search.component';
-import {NgbModule,NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 @NgModule({
   declarations: [
@@ -22,8 +23,7 @@ import {NgbModule,NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     HttpClientModule,
     AppRouterModule,
-    NgbModule,
-    NgbAlertModule
+    NgxPaginationModule
     ],
   providers: [UserService],
   bootstrap: [AppComponent]

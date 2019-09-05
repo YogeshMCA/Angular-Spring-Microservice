@@ -12,6 +12,7 @@
               <small class="text-danger">Search field is required</small>    
           </div>
           <button class="btn btn-primary" (click)="getDetails()" name="Search">Search</button>
+          <button class="btn btn-primary" (click)="getAllDetails()" name="Search">SearchAll</button>
     </div>
     
     <table>
@@ -27,14 +28,14 @@
         </tr>
       </thead>
       <tbody>
-          <tr>
-            <td>{{userFeedbk.uName}}</td>
-            <td>{{userFeedbk.email}}</td>
-            <td>{{userFeedbk.mobile}}</td>
-            <td>{{userFeedbk.food}}</td>
-            <td>{{userFeedbk.liked}}</td>
-            <td>{{userFeedbk.nImp}}</td>
-            <td>{{userFeedbk.createDate}}</td>
+          <tr *ngFor ="let usrFdb of userFeedbk" >
+            <td>{{usrFdb.uName}}</td>
+            <td>{{usrFdb.email}}</td>
+            <td>{{usrFdb.mobile}}</td>
+            <td>{{usrFdb.food}}</td>
+            <td>{{usrFdb.liked}}</td>
+            <td>{{usrFdb.nImp}}</td>
+            <td>{{usrFdb.createDate}}</td>
           </tr>
       </tbody>
     </table>
