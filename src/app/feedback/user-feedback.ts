@@ -1,4 +1,5 @@
 export class UserFeedback {
+    public id: number;
     public uName: String;
     public email: String;
     public mobile: String;

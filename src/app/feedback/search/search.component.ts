@@ -13,6 +13,7 @@ export class SearchComponent implements OnInit {
   fieldLst: String[];
   selectedValue: String;
   userFeedbk: UserFeedback[];
+  userFeedbk1: UserFeedback;
 
   constructor(private http: HttpClient) {
     this.fieldLst = ["ID","Name","Email"];
@@ -21,13 +22,17 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
   }
   getDetails(){
-    this.http.get<UserFeedback[]>('https://curr-conversion.cfapps.io/user-feedback-details/id/'+this.selectedValue).
-    subscribe(data => {console.log(Array.from(data));});
+    this.http.get<UserFeedback>('https://curr-conversion.cfapps.io/user-feedback-details/id/'+this.selectedValue).
+    subscribe(data => {this.userFeedbk1 = data;this.userFeedbk = Array.of(this.userFeedbk1);});
   }
 
   getAllDetails(){
     this.http.get<UserFeedback[]>('https://curr-conversion.cfapps.io/user-feedback-details').
-    subscribe(data => {this.userFeedbk = data;console.log(data);});
+    subscribe(data => {this.userFeedbk = data;});
+  }
 
+  deleteDetail(usrFeedback: UserFeedback){
+    this.http.get<String>('https://curr-conversion.cfapps.io/user-feedback-delete/id/'+usrFeedback.id);
+    
   }
 }
