@@ -32,24 +32,25 @@ export class CurrencyComponent implements OnInit {
     this.http = http;
     this.user = userService.user;
     this.cCode = userService.cCode;
-    this.inr2USD = '30';
+    //this.inr2USD = '30';
     setInterval(()=>{let date = new Date();this.dateTime = date.toDateString()+' '+date.toLocaleTimeString();},1000);
     console.log('Constructor Calling First');
    }
    
 
   ngOnInit() {
-    this.inr2USD = '15';
+    //this.inr2USD = '15';
     console.log('ngOnInit()->Fully initialized');
   }
   Convert(){
-    this.getRate().subscribe(data => {
+    /*this.getRate().subscribe(data => {
       this.cConversion = data;
       this.inr2USD = this.cConversion.calcAmount;
     },
     error => {
         this.errorMessage = error;
-    });
+    });*/
+    this.inr2USD = '100';
     console.log(this.sForm);
   }
   public getRate(): Observable<Cconversion>{
@@ -59,5 +60,9 @@ export class CurrencyComponent implements OnInit {
 
   public returnError(error: HttpErrorResponse){
     return Observable.throw(error.message || "Internal Server Error");
+  }
+
+  ngOnChanges(){
+    console.log("Updated Value");
   }
 }
