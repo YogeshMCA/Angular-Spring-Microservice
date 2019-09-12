@@ -25,7 +25,4 @@ export class AppComponent implements OnInit{
     this.router.navigate(['/currency']);
   }
 
-  ngOnChanges(changes: SimpleChanges){
-    console.log("Value updated");
-  }
 }

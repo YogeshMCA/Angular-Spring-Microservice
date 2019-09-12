@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
 import { User } from './user';
 import { Employer } from './employer';
 import {Ccodes} from './ccodes';
@@ -16,7 +16,7 @@ import 'rxjs/add/observable/throw';
   styleUrls: ['./currency.component.css']
 })
 
-export class CurrencyComponent implements OnInit {
+export class CurrencyComponent implements OnInit,OnChanges {
 
   @Input('inr2usd') inr2USD : String;
   @Input('employer') emp: Employer[];
@@ -32,25 +32,24 @@ export class CurrencyComponent implements OnInit {
     this.http = http;
     this.user = userService.user;
     this.cCode = userService.cCode;
-    //this.inr2USD = '30';
+    this.inr2USD = '30';
     setInterval(()=>{let date = new Date();this.dateTime = date.toDateString()+' '+date.toLocaleTimeString();},1000);
     console.log('Constructor Calling First');
    }
    
 
   ngOnInit() {
-    //this.inr2USD = '15';
     console.log('ngOnInit()->Fully initialized');
   }
   Convert(){
-    /*this.getRate().subscribe(data => {
+    this.getRate().subscribe(data => {
       this.cConversion = data;
       this.inr2USD = this.cConversion.calcAmount;
     },
     error => {
         this.errorMessage = error;
-    });*/
-    this.inr2USD = '100';
+    });
+    
     console.log(this.sForm);
   }
   public getRate(): Observable<Cconversion>{
@@ -62,7 +61,7 @@ export class CurrencyComponent implements OnInit {
     return Observable.throw(error.message || "Internal Server Error");
   }
 
-  ngOnChanges(){
-    console.log("Updated Value");
+  ngOnChanges(changes: SimpleChanges){
+    console.log("ngOnChange Hook called when a property in parent component get updated, i.e updating value in parent view:");
   }
 }

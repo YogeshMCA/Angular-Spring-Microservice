@@ -9,4 +9,7 @@
     <button (click)='navigateToCurrency()'>Currency</button>
 </nav>
 <router-outlet></router-outlet>
+<div>
+    <input [(ngModel)]="conVal"/>
+</div>
 <app-currency [inr2usd]="conVal" [employer]="employer"></app-currency>
