@@ -9,6 +9,7 @@ import { UserService } from './currency/user.service';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { SearchComponent } from './feedback/search/search.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import {TextChangeDirective} from './text-change.directive';
 
 
 @NgModule({
@@ -16,7 +17,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AppComponent,
     CurrencyComponent,
     FeedbackComponent,
-    SearchComponent
+    SearchComponent,
+    TextChangeDirective
+    
   ],
   imports: [
     BrowserModule,

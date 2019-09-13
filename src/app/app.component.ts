@@ -1,6 +1,7 @@
-import { Component, OnChanges,SimpleChanges, OnInit } from '@angular/core';
+import { Component, OnChanges,SimpleChanges, OnInit, ViewChildren, QueryList, ContentChildren, ContentChild, ViewChild, ElementRef } from '@angular/core';
 import { Employer } from './currency/employer';
 import { Router } from '@angular/router';
+import { TextChangeDirective } from './text-change.directive';
 
 
 
@@ -17,12 +18,12 @@ export class AppComponent implements OnInit{
   employer: Employer[];
   conVal: String;
   
-  constructor(private router: Router){
+    constructor(private router: Router){
     this.employer = [new Employer('HCL','Mumbai'),new Employer('TCS','Chennai')];
     this.conVal = '555';
   }
   navigateToCurrency(){
     this.router.navigate(['/currency']);
   }
-
+  
 }

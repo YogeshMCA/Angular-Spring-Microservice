@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChange, SimpleChanges, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChange, SimpleChanges, DoCheck, KeyValueDiffers, KeyValueDiffer, ContentChild, ElementRef } from '@angular/core';
 import { User } from './user';
 import { Employer } from './employer';
 import {Ccodes} from './ccodes';
@@ -28,6 +28,7 @@ export class CurrencyComponent implements OnInit,OnChanges,DoCheck {
   cCode: Ccodes;
   errorMessage: any;
   differ: any;
+  @ContentChild('appTextChange') appText: ElementRef;
   
   constructor(private http: HttpClient,private userService: UserService,private keyValDiffers: KeyValueDiffers) {
     this.http = http;
@@ -74,5 +75,13 @@ export class CurrencyComponent implements OnInit,OnChanges,DoCheck {
       diffVal.forEachChangedItem(k =>{console.log('Previous Value:'+k.previousValue+'Current Value:'+k.currentValue);});
 
     //console.log("ngDoCheck Hook called when a value in refrence object property get updated in parent view:");
+  }
+  ngAfterContentInit(){
+    console.log(this.appText.nativeElement) ;
+    
+  }
+  ngAfterViewInit(){
+    console.log(this.appText.nativeElement) ;
+    
   }
 }
