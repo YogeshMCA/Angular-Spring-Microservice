@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChange, SimpleChanges, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
 import { User } from './user';
 import { Employer } from './employer';
 import {Ccodes} from './ccodes';
@@ -16,8 +16,8 @@ import 'rxjs/add/observable/throw';
   styleUrls: ['./currency.component.css']
 })
 
-export class CurrencyComponent implements OnInit,OnChanges {
-
+export class CurrencyComponent implements OnInit,OnChanges,DoCheck {
+  
   @Input('inr2usd') inr2USD : String;
   @Input('employer') emp: Employer[];
   sForm: String = 'USD';
@@ -27,8 +27,9 @@ export class CurrencyComponent implements OnInit,OnChanges {
   user: User;
   cCode: Ccodes;
   errorMessage: any;
-
-  constructor(private http: HttpClient,userService: UserService) {
+  differ: any;
+  
+  constructor(private http: HttpClient,private userService: UserService,private keyValDiffers: KeyValueDiffers) {
     this.http = http;
     this.user = userService.user;
     this.cCode = userService.cCode;
@@ -40,6 +41,10 @@ export class CurrencyComponent implements OnInit,OnChanges {
 
   ngOnInit() {
     console.log('ngOnInit()->Fully initialized');
+    this.differ = this.keyValDiffers.find(this.emp).create(); // return KeyValueDiffer
+    /* KeyValueDiffer is a differ that tracks changes made to an object over time. 
+       It has a diff method to compute a difference between the previous state and the new object state.
+    */
   }
   Convert(){
     this.getRate().subscribe(data => {
@@ -49,7 +54,6 @@ export class CurrencyComponent implements OnInit,OnChanges {
     error => {
         this.errorMessage = error;
     });
-    
     console.log(this.sForm);
   }
   public getRate(): Observable<Cconversion>{
@@ -63,5 +67,12 @@ export class CurrencyComponent implements OnInit,OnChanges {
 
   ngOnChanges(changes: SimpleChanges){
     console.log("ngOnChange Hook called when a property in parent component get updated, i.e updating value in parent view:");
+  }
+  ngDoCheck(){
+    const diffVal = this.differ.diff(this.emp[0]);
+    if(diffVal)
+      diffVal.forEachChangedItem(k =>{console.log('Previous Value:'+k.previousValue+'Current Value:'+k.currentValue);});
+
+    //console.log("ngDoCheck Hook called when a value in refrence object property get updated in parent view:");
   }
 }

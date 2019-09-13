@@ -10,6 +10,9 @@
 </nav>
 <router-outlet></router-outlet>
 <div>
-    <input [(ngModel)]="conVal"/>
+    ngOnChanges Hook won't work on updating reference object value:<input [(ngModel)]=employer[0].eName/>
+  </div>
+<div>
+    ngOnChanges Hook works only on updating primitive type value:<input [(ngModel)]="conVal"/>
 </div>
 <app-currency [inr2usd]="conVal" [employer]="employer"></app-currency>
