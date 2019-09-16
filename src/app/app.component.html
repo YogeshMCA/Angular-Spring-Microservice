@@ -16,5 +16,6 @@
     ngOnChanges Hook works only on updating primitive type value:<input [(ngModel)]="conVal"/>
 </div>
 <app-currency [inr2usd]="conVal" [employer]="employer">
-    <div #appTextChange>Texting</div>
+    <button (click)="$event">Click</button>
+    <appTextChange #styleClass current={{conVal|customPipe}} previous="PreviousText"></appTextChange>
 </app-currency>

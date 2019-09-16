@@ -1,3 +1,4 @@
+{{appTextChange.current}}{{appTextChange.previous}}
 <div>
   Date/Time: {{dateTime}}<br>
   Name: {{user.userName}}<br>
@@ -27,7 +28,10 @@ From:
    {{inr2USD}}{{errorMessage}}
  </div>
  <div style="padding-top: 1%">
-   <button class="btn btn-primary" name="Convert" (click)="Convert()">Convert</button>
+   <button #styleClass name="Convert" (click)="Convert()">Convert</button>
  </div>
- 
+ <div>
+   <button (click)="employerSubscribe()">Observable/Subscribe</button>
+ </div>
+ <ng-content></ng-content>
 

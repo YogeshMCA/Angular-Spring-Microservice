@@ -10,6 +10,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { SearchComponent } from './feedback/search/search.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {TextChangeDirective} from './text-change.directive';
+import { CustomPipePipe } from './custom-pipe.pipe';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import {TextChangeDirective} from './text-change.directive';
     CurrencyComponent,
     FeedbackComponent,
     SearchComponent,
-    TextChangeDirective
+    TextChangeDirective,
+    CustomPipePipe
     
   ],
   imports: [

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChange, SimpleChanges, DoCheck, KeyValueDiffers, KeyValueDiffer, ContentChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChange, SimpleChanges, DoCheck, KeyValueDiffers, KeyValueDiffer, ContentChild, ElementRef, ViewChild } from '@angular/core';
 import { User } from './user';
 import { Employer } from './employer';
 import {Ccodes} from './ccodes';
@@ -9,6 +9,7 @@ import { Cconversion } from './cconversion';
 import {UserService} from './user.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+import { TextChangeDirective } from '../text-change.directive';
 
 @Component({
   selector: 'app-currency',
@@ -28,7 +29,8 @@ export class CurrencyComponent implements OnInit,OnChanges,DoCheck {
   cCode: Ccodes;
   errorMessage: any;
   differ: any;
-  @ContentChild('appTextChange') appText: ElementRef;
+  @ContentChild(TextChangeDirective) appTextChange: TextChangeDirective;
+  @ViewChild('styleClass') styleClass: ElementRef;
   
   constructor(private http: HttpClient,private userService: UserService,private keyValDiffers: KeyValueDiffers) {
     this.http = http;
@@ -46,6 +48,17 @@ export class CurrencyComponent implements OnInit,OnChanges,DoCheck {
     /* KeyValueDiffer is a differ that tracks changes made to an object over time. 
        It has a diff method to compute a difference between the previous state and the new object state.
     */
+  }
+
+  public getEmployer(): any{
+    const emplyoerObservable = new Observable(observer=>{
+        setTimeout(()=>{observer.next(this.emp);},10000);
+    });
+    return emplyoerObservable;
+  }
+
+  public employerSubscribe(){
+    this.getEmployer().subscribe((employer: Employer[])=>{console.log(employer)});
   }
   Convert(){
     this.getRate().subscribe(data => {
@@ -68,6 +81,7 @@ export class CurrencyComponent implements OnInit,OnChanges,DoCheck {
 
   ngOnChanges(changes: SimpleChanges){
     console.log("ngOnChange Hook called when a property in parent component get updated, i.e updating value in parent view:");
+    
   }
   ngDoCheck(){
     const diffVal = this.differ.diff(this.emp[0]);
@@ -77,11 +91,15 @@ export class CurrencyComponent implements OnInit,OnChanges,DoCheck {
     //console.log("ngDoCheck Hook called when a value in refrence object property get updated in parent view:");
   }
   ngAfterContentInit(){
-    console.log(this.appText.nativeElement) ;
-    
+    //console.log(this.appText.nativeElement) ;
+    console.log(this.appTextChange.elementRef.nativeElement) ;
+    this.styleClass.nativeElement.style.color = 'red';
   }
   ngAfterViewInit(){
-    console.log(this.appText.nativeElement) ;
-    
+    //this.styleClass.nativeElement.style.color = 'red';
+    console.log(this.styleClass.nativeElement) ;
+  }
+  ngAfterContentChecked(){
+    console.log('ngAfterContentChecked Button Clicked');
   }
 }
