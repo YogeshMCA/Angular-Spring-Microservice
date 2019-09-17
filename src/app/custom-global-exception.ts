@@ -1,9 +1,14 @@
-import { ErrorHandler, Injectable } from "@angular/core";
+import { ErrorHandler, Injectable, Injector } from "@angular/core";
 import { HttpErrorResponse } from "@angular/common/http";
-
+import { Router } from "@angular/router";
+@Injectable()
 export class CustomGlobalException implements ErrorHandler{
+    
+    constructor(private injector: Injector){}
+
     handleError(error: Error| HttpErrorResponse): void {
         //throw new Error("Method not implemented.");
+        let router = this.injector.get(Router);
         console.log('------Global Exception Calling---------');
         if(error instanceof HttpErrorResponse){
             if(!navigator.onLine){
@@ -16,6 +21,7 @@ export class CustomGlobalException implements ErrorHandler{
         else {
             console.log('Client Side Exception');
         }
+        router.navigate(['/CustomError']);
     }
     
 }

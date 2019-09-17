@@ -12,6 +12,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import {TextChangeDirective} from './text-change.directive';
 import { CustomPipePipe } from './custom-pipe.pipe';
 import { CustomGlobalException } from './custom-global-exception';
+import { GlobalExceptionComponent } from './global-exception/global-exception.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { CustomGlobalException } from './custom-global-exception';
     FeedbackComponent,
     SearchComponent,
     TextChangeDirective,
-    CustomPipePipe
+    CustomPipePipe,
+    GlobalExceptionComponent
     
   ],
   imports: [
