@@ -33,7 +33,8 @@ export class CurrencyComponent implements OnInit,OnChanges,DoCheck {
   @ContentChild(TextChangeDirective) appTextChange: TextChangeDirective;
   @ViewChild('styleClass') styleClass: ElementRef;
 
-  testObservable: Observable<String>;
+  basicObservable: Observable<any>;
+  basicPromise: Promise<any>;
   
   constructor(private http: HttpClient,private userService: UserService,private keyValDiffers: KeyValueDiffers) {
     this.http = http;
@@ -47,38 +48,63 @@ export class CurrencyComponent implements OnInit,OnChanges,DoCheck {
 
   ngOnInit() {
     console.log('ngOnInit()->Fully initialized');
-    this.testObservable = new Observable((function(observer){observer.next('15');observer.next('16');}));
+    this.basicObservable = new Observable(this.basicSubscribe);
+    this.basicPromise = new Promise(this.basicThen);
     this.differ = this.keyValDiffers.find(this.emp).create(); // return KeyValueDiffer
     /* KeyValueDiffer is a differ that tracks changes made to an object over time. 
        It has a diff method to compute a difference between the previous state and the new object state.
     */
   }
 
-  public multipleObservable(): Observable<any[]>{
-    const testObservable = new Observable((function(observer){observer.next('15');observer.next('16');}));
-    const emplyoerObservable = new Observable(observer=>{setTimeout(()=>{observer.next(this.emp);},1000);});
-    return Observable.forkJoin([testObservable,emplyoerObservable]);
-  }
-
-  public singleSubscribe(){
-    this.multipleObservable().subscribe(responseLst=>{
-      console.log(responseLst[0]);
-      //console.log(responseLst[1]);
-    });
-   
-  }
+  //Creating Observable at a basic level
+  public basicSubscribe(basicObservable){
+    console.log("Observable Executing");
+  basicObservable.next(999);
+  basicObservable.next("Error");
+  basicObservable.next("Exception");
+  basicObservable.complete();
+ } //Creating Observable at a basic level
 
   public getEmployer(): any{
-    const emplyoerObservable = new Observable(observer=>{
-        setTimeout(()=>{observer.next(this.emp);},10000);
-    });
+    //Observable return multiple values, but Promises return single value
+    const emplyoerObservable = new Observable(observer=>{observer.next(this.emp);observer.next(50);});
     return emplyoerObservable;
   }
 
   public employerSubscribe(){
-    this.getEmployer().subscribe((employer: Employer[])=>{console.log(employer)});
-    this.testObservable.subscribe((x)=>{console.log(x)});
+    this.getEmployer().subscribe(this.subscribeFunction);
+
+    this.basicObservable.subscribe(this.nextFun,this.errorFun,this.completeFun);
+    this.basicObservable.subscribe(this.nextFun,this.errorFun,this.completeFun);
   }
+
+  public subscribeFunction(value: Employer[]){
+      console.log(value);
+  }
+ public nextFun(value){
+    console.log(value);
+}
+public errorFun(error){
+  console.log(error);
+}
+public completeFun(){
+  console.log("Completed Function");
+}
+
+public basicThen(resolve){
+  console.log('Promise Executing');
+  resolve('Basic Promise:1');
+  resolve('Basic Promise:2');
+}
+
+public clickPromise(){
+  this.basicPromise.then(this.resolveFun);
+  this.basicPromise.then(this.resolveFun); //multicast - It won't execute the basicThen(), but the result will be same
+}
+public resolveFun(value){
+  console.log(value);
+}
+
   Convert(){
     this.getRate().subscribe(data => {
       this.cConversion = data;
