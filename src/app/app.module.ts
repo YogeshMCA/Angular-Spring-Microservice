@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { AppComponent } from './app.component';
 import { CurrencyComponent } from './currency/currency.component';
 import {FormsModule} from '@angular/forms';
@@ -11,6 +11,7 @@ import { SearchComponent } from './feedback/search/search.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {TextChangeDirective} from './text-change.directive';
 import { CustomPipePipe } from './custom-pipe.pipe';
+import { CustomGlobalException } from './custom-global-exception';
 
 
 @NgModule({
@@ -30,7 +31,7 @@ import { CustomPipePipe } from './custom-pipe.pipe';
     AppRouterModule,
     NgxPaginationModule
     ],
-  providers: [UserService],
+  providers: [UserService,{provide:ErrorHandler,useClass:CustomGlobalException}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

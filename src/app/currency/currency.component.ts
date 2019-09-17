@@ -11,6 +11,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { TextChangeDirective } from '../text-change.directive';
 import { forkJoin } from 'rxjs/observable/forkJoin';
+import { retry } from 'rxjs/operators/retry';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-currency',
@@ -109,19 +111,17 @@ public resolveFun(value){
     this.getRate().subscribe(data => {
       this.cConversion = data;
       this.inr2USD = this.cConversion.calcAmount;
-    },
-    error => {
-        this.errorMessage = error;
     });
     console.log(this.sForm);
   }
   public getRate(): Observable<Cconversion>{
     return this.http.get<Cconversion>('https://curr-conversion.cfapps.io/currency-converter-feign/from/'+this.sForm+'/to/'+this.sTo+'/quantity/1')
-                    .catch(this.returnError);
+                      .pipe(retry(3))
+                    
   }
 
   public returnError(error: HttpErrorResponse){
-    return Observable.throw(error.message || "Internal Server Error");
+    return Observable.throw("Internal Server Error");
   }
 
   ngOnChanges(changes: SimpleChanges){
