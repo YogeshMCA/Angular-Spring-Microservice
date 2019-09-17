@@ -10,6 +10,7 @@ import {UserService} from './user.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { TextChangeDirective } from '../text-change.directive';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Component({
   selector: 'app-currency',
@@ -31,6 +32,8 @@ export class CurrencyComponent implements OnInit,OnChanges,DoCheck {
   differ: any;
   @ContentChild(TextChangeDirective) appTextChange: TextChangeDirective;
   @ViewChild('styleClass') styleClass: ElementRef;
+
+  testObservable: Observable<String>;
   
   constructor(private http: HttpClient,private userService: UserService,private keyValDiffers: KeyValueDiffers) {
     this.http = http;
@@ -44,10 +47,25 @@ export class CurrencyComponent implements OnInit,OnChanges,DoCheck {
 
   ngOnInit() {
     console.log('ngOnInit()->Fully initialized');
+    this.testObservable = new Observable((function(observer){observer.next('15');observer.next('16');}));
     this.differ = this.keyValDiffers.find(this.emp).create(); // return KeyValueDiffer
     /* KeyValueDiffer is a differ that tracks changes made to an object over time. 
        It has a diff method to compute a difference between the previous state and the new object state.
     */
+  }
+
+  public multipleObservable(): Observable<any[]>{
+    const testObservable = new Observable((function(observer){observer.next('15');observer.next('16');}));
+    const emplyoerObservable = new Observable(observer=>{setTimeout(()=>{observer.next(this.emp);},1000);});
+    return Observable.forkJoin([testObservable,emplyoerObservable]);
+  }
+
+  public singleSubscribe(){
+    this.multipleObservable().subscribe(responseLst=>{
+      console.log(responseLst[0]);
+      //console.log(responseLst[1]);
+    });
+   
   }
 
   public getEmployer(): any{
@@ -59,6 +77,7 @@ export class CurrencyComponent implements OnInit,OnChanges,DoCheck {
 
   public employerSubscribe(){
     this.getEmployer().subscribe((employer: Employer[])=>{console.log(employer)});
+    this.testObservable.subscribe((x)=>{console.log(x)});
   }
   Convert(){
     this.getRate().subscribe(data => {
