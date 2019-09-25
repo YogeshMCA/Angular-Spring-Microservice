@@ -19,7 +19,7 @@ export class CustomGlobalException implements ErrorHandler{
             
         }
         else {
-            console.log('Client Side Exception');
+            console.log('Client Side Exception',error.message);
         }
         router.navigate(['/CustomError']);
     }

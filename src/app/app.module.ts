@@ -13,6 +13,7 @@ import {TextChangeDirective} from './text-change.directive';
 import { CustomPipePipe } from './custom-pipe.pipe';
 import { CustomGlobalException } from './custom-global-exception';
 import { GlobalExceptionComponent } from './global-exception/global-exception.component';
+import { OauthServiceService } from './OAuth/oauth-service.service';
 
 
 @NgModule({
@@ -33,7 +34,7 @@ import { GlobalExceptionComponent } from './global-exception/global-exception.co
     AppRouterModule,
     NgxPaginationModule
     ],
-  providers: [UserService,{provide:ErrorHandler,useClass:CustomGlobalException}],
+  providers: [OauthServiceService,UserService,{provide:ErrorHandler,useClass:CustomGlobalException}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
